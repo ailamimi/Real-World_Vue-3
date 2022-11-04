@@ -24,7 +24,7 @@ export default {
   },
 
   created() {
-    EventService.getEvent()
+    EventService.getEvents()
       .then(response => {
         this.events = response.data
       })
