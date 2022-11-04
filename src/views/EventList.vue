@@ -3,6 +3,21 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <h1>Events for good</h1>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
+
+    <router-link
+      :to="{ name: 'EventList', query: { page: page - 1 } }"
+      rel="prev"
+      v-if="page != 1"
+    >
+      Prev Page
+    </router-link>
+
+    <router-link
+      :to="{ name: 'EventList', query: { page: page + 1 } }"
+      rel="next"
+    >
+      Next Page
+    </router-link>
   </div>
 </template>
 
