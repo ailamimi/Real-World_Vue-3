@@ -18,9 +18,11 @@ export default {
   /*
    * _limit -> how many items to return
    * _page -> what page we are on
+   * perPage -> events to return per page
+   * page -> the page we're on
    */
   getEvents(perPage, page) {
-    return apiClient.get('/events?_limit' + perPage + '&_page=' + page)
+    return apiClient.get('/events?_limit=' + perPage + '&_page=' + page)
   },
 
   getEvent(id) {

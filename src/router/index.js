@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EventList from '../views/EventList.vue'
-import EventDetails from '../views/EventDetails.vue'
+import EventDetails from '../views/event/Details.vue'
+import EventRegister from '../views/event/Register.vue'
+import EventLayout from '../views/event/Layout.vue'
+import EventEdit from '../views/event/Edit.vue'
 import About from '../views/About.vue'
 
 const routes = [
@@ -8,7 +11,7 @@ const routes = [
     path: '/',
     name: 'EventList',
     component: EventList,
-    props: route => ({ page: parseInt(route.query.page || 1) })
+    props: route => ({ page: parseInt(route.query.page) || 1 })
   },
   {
     path: '/about',
@@ -19,10 +22,37 @@ const routes = [
     component: About
   },
   {
-    path: '/event/:id', //:id - dynamic segment
-    name: 'EventDetails',
-    component: EventDetails,
-    props: true
+    path: '/events/:id', //:id - dynamic segment
+    name: 'EventLayout',
+    component: EventLayout,
+    props: true,
+    children: [
+      {
+        path: '', //:id - dynamic segment
+        name: 'EventDetails',
+        component: EventDetails
+      },
+      {
+        path: 'register', //:id - dynamic segment
+        name: 'EventRegister',
+        component: EventRegister
+      },
+      {
+        path: 'edit', //:id - dynamic segment
+        name: 'EventEdit',
+        component: EventEdit
+      },
+      {
+        path: '/event/:afterEvent(.*)',
+        redirect: to => {
+          return { path: '/events/' + to.params.afterEvent }
+        }
+        /* children: [
+          { path: 'register', redirect: () => ({ name: 'EventRegister' }) },
+           { path: 'edit', redirect: () => ({ name: 'EventEdit' }) }
+        ] */
+      }
+    ]
   }
 ]
 
